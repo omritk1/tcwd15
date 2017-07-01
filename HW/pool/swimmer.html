@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Swimming Pool</title>
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.js"
+      integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+      crossorigin="anonymous"></script>
+  </head>
+  <style>
+    main{
+      background-image: url("pool.jpg");
+      height: 350px;
+      width: 80%;
+      margin-left: 8%;
+      margin-top: 5%;
+      border: solid;
+    }
+    img{
+      margin-top: 2%;
+
+    }
+    button#swim {
+    margin-top: 20px;
+    margin-left: 45%;
+    background: black;
+    color: lightblue;
+}
+  </style>
+  <body>
+
+    <main>
+
+      <br>
+      <div data-swimmer="1"><img src="./swimmer.png" class="swimmer1" style="width: 150px; height: 60px;"></div>
+      <br>
+      <div data-swimmer="2"><img src="./swimmer.png" class="swimmer2" style="width: 150px; height: 60px;"></div>
+      <br>
+      <div data-swimmer="3"><img src="./swimmer.png" class="swimmer3" style="width: 150px; height: 60px;"></div>
+      <br>
+
+    </main>
+<br>
+    <button id="swim" onclick="play()">Start Swim!</button>
+    <audio id="audio" src="./gunshot.mp3" ></audio>
+  </body>
+
+
+  <script type="text/javascript">
+
+  var minNumber = 250;
+  var maxNumber = 1000;
+  var swimmer;
+  var winner;
+  var maxSpeed = maxNumber;
+
+$( "#swim" ).click(function() {
+for (swimmer = 1; swimmer < 4 ; swimmer++){
+
+    var randomNumber = randomNumberFromRange(minNumber, maxNumber);
+    var datas = '[data-swimmer = ' + swimmer + ']';
+
+if(randomNumber<maxSpeed){
+  maxSpeed = randomNumber;
+  winner = swimmer;
+}
+console.log(randomNumber);
+
+
+    $(datas).animate({
+            marginLeft: '+=88%',
+
+        },
+
+       randomNumber,
+
+        function() {
+
+          if(!alert("The Winner Is Swimmer Number"+winner+" In "+maxSpeed+" MS")){window.location.reload();}
+
+        });
+      }
+  });
+
+
+function randomNumberFromRange(min,max)
+{
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+function play(){
+       var audio = document.getElementById("audio");
+       audio.play();
+                 }
+
+  </script>
+</html>
