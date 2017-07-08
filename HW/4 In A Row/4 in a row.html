@@ -125,35 +125,121 @@
 
 <script>
 
-  var player = true;
-  var colPlace = [6,6,6,6,6,6,6,6,6,6,];//This Array contines the number of colmans cells for each colman
+var player = {color:"red"};
+var colPlace = [6,6,6,6,6,6,6,6,6,6,];
 
-  function addToCol(className) {
-      player = !player;
+var playerArray = new Array(7);
+for(var y = 0; y<7 ;y++){
+  playerArray[y] = new Array(10)
+}
 
-      if (player === true) {
-        document.getElementsByClassName(className)[colPlace[className]].style.backgroundColor="blue";
-        //This func gets the (class) for the [?] place in the Array and set the CSS the last cell in the colman
-        //This [colPlace(className)] is represents the number to change in the Array
+
+
+  for (var x = 0; x < 7; x++) {
+    for (var y = 0; y < 10; y++) {
+      playerArray[x][y] =  {color:"white"};
+  }
+}
+
+
+//This function get the className from the click event
+function addToCol(className){
+  //playerArray gets [x][y] x= [colPlace(array of 10) and the [className] that gives as the place in the array] y= [className = col number]
+  playerArray[colPlace[className]][className].color = player.color;
+  document.getElementsByClassName(className)[colPlace[className]].style.backgroundColor = player.color;
+
+  arrayCheck(className,colPlace[className]);
+
+  colPlace[className]--;
+  changePlayer();
+}
+
+
+
+function arrayCheck(col,row) {
+  var counterY = 0;
+
+    for(var y=0; y<10; y++){
+      //4 In A row
+      if(playerArray[row][y].color === player.color){
+        counterY++;
       }
-
       else {
-        document.getElementsByClassName(className)[colPlace[className]].style.backgroundColor="red";
+        counterY = 0;
       }
-             colPlace[className]--;
-             var colLog = colPlace[className];
 
-             if (colLog){
-               console.log(colLog);
-             }
+      if(counterY == 4){
+        setTimeout(function(){
+           alert("Game Over | Press Ok To Start Over");
+           window.location.reload();
+         }, 200);
+        break;
+      }
+    }
 
+    var counterX = 0;
+
+   for(var x=0; x<7; x++){
+       if(playerArray[x][col].color === player.color){
+         counterX++
+       }
+       else {
+         counterX = 0;
+       }
+       if (counterX==4) {
+         setTimeout(function(){
+            alert("Game Over | Press Ok To Start Over");
+            window.location.reload();
+          }, 200);
+
+         break;
+       }
+   }
   }
 
 
 
+function changePlayer(){
+  if (player.color === "red") {
+    player.color = "blue";
+  }
+  else {
+    player.color ="red";
+  }
+}
 
-
-
+  //
+  //
+  // var player = true;
+  // var colPlace = [6,6,6,6,6,6,6,6,6,6,];//This Array contines the number of colmans cells for each colman
+  //
+  //
+  // function addToCol(className) {
+  //     player = !player;
+  //
+  //     if (player === true) {
+  //       document.getElementsByClassName(className)[colPlace[className]].style.backgroundColor="blue";
+  //       //This func gets the (class) for the [?] place in the Array and set the CSS the last cell in the colman
+  //       //This [colPlace(className)] is represents the number to change in the Array
+  //     }
+  //
+  //     else {
+  //       document.getElementsByClassName(className)[colPlace[className]].style.backgroundColor="red";
+  //     }
+  //            colPlace[className]--;
+  //            var colLog = colPlace[className];
+  //
+  //            if (colLog){
+  //              console.log(colLog);
+  //            }
+  //
+  // }
+  //
+  //
+  //
+  //
+  //
+  //
 
 
 
